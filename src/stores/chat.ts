@@ -57,7 +57,7 @@ export const useChatStore = create(
         set(() => ({ inputPrompt }))
       },
       async addMessage() {
-        const { style, size, apiKey, quality } = useConfigStore.getState()
+        const { model, style, size, apiKey, quality } = useConfigStore.getState()
         if (!apiKey) {
           get().toggleApiKeyDialog(true)
           return
@@ -79,7 +79,7 @@ export const useChatStore = create(
         })
         const options: ImageGenerateParams = {
           prompt: get().inputPrompt,
-          model: 'dall-e-3',
+          model: model,
           n: 1,
           response_format: 'b64_json',
           size: size,

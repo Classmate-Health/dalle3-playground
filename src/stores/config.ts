@@ -7,6 +7,7 @@ type Defined<T> = T extends undefined ? never : T
 export type Quality = Defined<ImageGenerateParams['quality']>
 export type Style = Defined<ImageGenerateParams['style']>
 export type Size = `1024x1024` | `1792x1024` | `1024x1792`
+export type Model = 'dall-e-2' | 'dall-e-3'
 
 type ConfigStore = {
   apiKey: string
@@ -21,13 +22,17 @@ type ConfigStore = {
   size: Size
   setSize: (style: Size) => void
 
+  model: Model
+  setModel: (model: Model) => void
+
   reset: () => void
 }
 
-const DEFAULT_CONFIG: Pick<ConfigStore, 'quality' | 'size' | 'style'> = {
+const DEFAULT_CONFIG: Pick<ConfigStore, 'quality' | 'size' | 'style' | 'model'> = {
   quality: 'standard',
   style: 'vivid',
   size: '1024x1024',
+  model: 'dall-e-2',
 }
 
 export const useConfigStore = create(
@@ -46,6 +51,9 @@ export const useConfigStore = create(
       },
       setSize(size) {
         set({ size })
+      },
+      setModel(model) {
+        set({ model })
       },
 
       reset() {
